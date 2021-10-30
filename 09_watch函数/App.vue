@@ -28,8 +28,6 @@ export default {
       },
     })
 
-    // watch 时 value的问题，基本数据类型不要 .value，对象数据类型可以 .value，也可以deep:true!!!!!!!
-
     // ref 监视一个
     // watch(a, (newValue, oldValue) => {
     //   console.log(newValue, oldValue)
@@ -45,9 +43,9 @@ export default {
     // )
 
     // reactive 监视全部 强制开启 deep:true ,oldValue 无效
-    watch(person, (newValue, oldValue) => {
-      console.log(newValue, oldValue)
-    })
+    // watch(person, (newValue, oldValue) => {
+    //   console.log(newValue, oldValue)
+    // })
 
     // reactive 监视某个
     // watch(
@@ -63,15 +61,15 @@ export default {
     // })
 
     // 特殊情况 person.job是一个对象，要用 deep:true
-    // watch(
-    //   () => person.job,
-    //   (newValue, oldValue) => {
-    //     console.log(newValue, oldValue)
-    //   },
-    //   {
-    //     deep: true,
-    //   }
-    // )
+    watch(
+      () => person.job,
+      (newValue, oldValue) => {
+        console.log(newValue, oldValue)
+      },
+      {
+        deep: true,
+      }
+    )
 
     return {
       a,
