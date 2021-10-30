@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <div></div>
+  <body>
+    <script>
+      // 模拟响应式
+      //#region
+      // const div = document.querySelector('div')
+      // let a = { name: 'xiaodeng' }
+      // let p = {}
+      // div.innerHTML = a.name
+
+      // setTimeout(() => {
+      //   p.name = 'xd'
+      // }, 2000)
+
+      // Object.defineProperty(p, 'name', {
+      //   get() {
+      //     return a.name
+      //   },
+      //   set(value) {
+      //     a.name = value
+      //     div.innerHTML = a.name
+      //   },
+      // })
+      //#endregion
+
+      //#region
+      // 回顾 Vue2 的响应式
+      /*
+        vue2 的响应式
+        存在问题：(vue3里面不存在这些问题，因为对象的话用的不是 Object.defineProtery(),用的是 proxy)
+          1 新增属性、删除属性、界面不会更新 （只有 get 和 set）要通过 this.$set() this.$delete()
+          2 直接通过下标修改数组，界面不会自动更新,(因为数组里面没有 get 和 set) 要用包裹的那7个方法，或者 this.$set()
+      */
+      // let data = { name: 'xd', age: 18 }
+      // function Observer(obj) {
+      //   Object.keys(obj).forEach((item) => {
+      //     Object.defineProperty(this, item, {
+      //       get() {
+      //         console.log('读取了')
+      //         return obj[item]
+      //       },
+      //       set(value) {
+      //         console.log('修改了')
+      //         obj[item] = value
+      //       },
+      //     })
+      //   })
+      // }
+      // const obs = new Observer(data)
+      // const vm = {}
+      // Object.keys(data).forEach((item) => {
+      //   Object.defineProperty(vm, item, {
+      //     get() {
+      //       return data[item]
+      //     },
+      //     set(value) {
+      //       data[item] = value
+      //     },
+      //   })
+      // })
+      // vm._data = data = obs
+      //#endregion
+
+      // Vue3响应式原理
+      // 源数据
+      let data = { name: 'xd', age: 21 }
+      const d = new Proxy(data, {
+        // 有人读取 d 的某个属性时调用
+        get(target, propName) {
+          console.log(`有人读取了 d 身上的${propName}属性`)
+          return target[propName]
+        },
+        // 有人修改 d 的某个属性、或给 d 追加某个属性时调用
+        set(target, propName, value) {
+          console.log(`有人修改了 d 身上的${propName}属性，我要去更新界面了`)
+          target[propName] = value
+        },
+        deleteProperty(target, propName) {
+          console.log(`有人删除了 d 身上的${propName}属性`)
+          return delete target[propName]
+        },
+      })
+    </script>
+  </body>
+</html>
