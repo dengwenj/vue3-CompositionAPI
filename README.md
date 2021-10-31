@@ -18,3 +18,13 @@
 2 新的内置组件
 ...
 ```
+
+## Composition API 的优势
+
+```
+  1 Options API 存在的问题
+      使用传统 Options API 中，新增或者修改一个需求，就需要分别在 data、methods、computed 里修改
+  2 Composition API 的优势
+      可以更加优雅的组织我们的代码，函数。让相关功能的代码更加有序的组织在一起
+      想让组合式 API 发挥出威力，就要借助 hook 函数，封装起来。在 setup 里面只需要引入 hook 函数就行了，功能都封装起来了，任何地方都可以使用
+```
